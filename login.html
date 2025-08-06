@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Life Care Hospital | Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #e3ecf7, #c0e0fa);
+      display: flex; flex-direction: column;
+    }
+    .login-card {
+      border-radius: .8rem;
+      box-shadow: 0 6px 36px rgba(40,122,214,0.11);
+      max-width: 370px;
+      width:100%;
+      margin: auto;
+    }
+    .btn-gradient {
+      background: linear-gradient(90deg, #43b0e4 0, #2376ae 90%);
+      color: #fff; border: none;
+    }
+    .btn-gradient:hover { background: linear-gradient(90deg, #2376ae 0, #43b0e4 90%);}
+    .navbar {
+      background: rgba(255,255,255,.97);
+      box-shadow: 0 2px 12px rgba(42,74,120,0.08);
+      backdrop-filter: blur(7px);
+    }
+    .nav-link, .navbar-brand { color:#2376ae !important; font-weight:500; }
+    .nav-link.active, .nav-link:hover { color: #43b0e4 !important;}
+    footer { background: #edf1f8; color: #4571aa;}
+    @media (max-width: 480px) {.login-card {padding: 1rem !important;} }
+  </style>
+</head>
+<body>
+  <!-- Header/Navbar -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Life Care Hospital</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#doctors">Doctors</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#book">Book</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#reviews">Review</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Login Form -->
+  <div class="login-card card p-4 mt-5 mb-4">
+    <h4 class="text-center mb-2">User Login</h4>
+    <form action="dashboard.html" method="get" autocomplete="off">
+      <div class="mb-3">
+        <label for="role" class="form-label">Select Role</label>
+        <select id="role" name="role" class="form-select" required>
+          <option value="" disabled selected>Choose your role</option>
+          <option value="receptionist">Receptionist</option>
+          <option value="admin">Admin</option>
+          <option value="doctor">Doctor</option>
+          <option value="lab">Lab Technician</option>
+          <option value="pharmacist">Pharmacist</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input id="username" type="text" name="username" class="form-control" required autocomplete="username">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input id="password" type="password" name="password" class="form-control" required autocomplete="current-password">
+      </div>
+      <div class="d-grid">
+        <button class="btn btn-gradient" type="submit">Login</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer class="py-3 mt-auto text-center">
+    <small>&copy; 2025 Life Care Hospital. All rights reserved.</small>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
