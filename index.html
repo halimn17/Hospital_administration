@@ -112,6 +112,244 @@
       border-radius: .5em; box-shadow: 0 2px 12px #aaddf855; font-size: 1.1em;
     }
     footer { background: #edf1f8; color: #4571aa; }
+
+    /* ============================================== */
+    /* ======= ENHANCED RESPONSIVE CSS ============== */
+    /* ============================================== */
+
+    /* Ensure all images and icons are responsive */
+    img, svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Bootstrap icons responsive sizing */
+    .bi {
+      font-size: 1.5rem !important;
+      min-width: 24px;
+      min-height: 24px;
+    }
+
+    .bi::before {
+      font-size: inherit !important;
+    }
+
+    /* Show hidden elements on mobile if they contain essential content */
+    @media (max-width: 991px) {
+      .d-none.d-md-block {
+        display: block !important;
+      }
+      
+      .navbar-brand.custom-brand {
+        font-size: 1.8rem !important;
+      }
+
+      .nav-link {
+        font-size: 0.95rem !important;
+        padding: 0.4rem 0.6rem !important;
+      }
+      
+      .hero-content {
+        margin-top: 1.5rem !important;
+        text-align: center !important;
+      }
+
+      .btn-gradient {
+        font-size: 1rem !important;
+        padding: 0.7rem 1.3rem !important;
+      }
+    }
+
+    /* Tablet and below (768px) */
+    @media (max-width: 768px) {
+      .navbar-brand.custom-brand {
+        font-size: 1.6rem !important;
+      }
+
+      .nav-link {
+        font-size: 0.9rem !important;
+        padding: 0.4rem 0.5rem !important;
+      }
+
+      /* Carousel adjustments */
+      .carousel-item img {
+        height: auto !important;
+        min-height: 200px !important;
+        max-height: 350px !important;
+        object-fit: cover !important;
+      }
+
+      .carousel-caption {
+        font-size: 0.9rem !important;
+        padding: 0.8rem 1rem !important;
+      }
+
+      .carousel-caption h2 {
+        font-size: 1.4rem !important;
+      }
+
+      .carousel-caption p {
+        font-size: 0.95rem !important;
+      }
+
+      /* Service and doctor cards */
+      .service-card, .doctor-card {
+        margin-bottom: 1.8rem !important;
+      }
+
+      .service-icon {
+        font-size: 2.1rem !important;
+      }
+
+      .doctor-card img {
+        width: 90px !important;
+        height: 90px !important;
+      }
+
+      .doctor-specialty-icon {
+        font-size: 1.8rem !important;
+      }
+
+      /* Booking form */
+      .booking-banner {
+        padding: 1.8rem 1.2rem !important;
+        margin: 0 1rem !important;
+        max-width: 100% !important;
+      }
+
+      /* Form controls */
+      .form-control, .form-select {
+        font-size: 1rem !important;
+        padding: 0.6rem !important;
+      }
+
+      .btn-gradient {
+        font-size: 1rem !important;
+        padding: 0.8rem 1.4rem !important;
+      }
+    }
+
+    /* Mobile and below (576px) */
+    @media (max-width: 576px) {
+      .navbar-brand.custom-brand {
+        font-size: 1.3rem !important;
+        letter-spacing: 1px !important;
+      }
+
+      .nav-link {
+        font-size: 0.85rem !important;
+        padding: 0.3rem 0.4rem !important;
+      }
+
+      /* Carousel for mobile */
+      .carousel-item img {
+        height: 200px !important;
+        min-height: 200px !important;
+        object-fit: cover !important;
+      }
+
+      .carousel-caption {
+        font-size: 0.8rem !important;
+        padding: 0.6rem 0.8rem !important;
+      }
+
+      .carousel-caption h2 {
+        font-size: 1.1rem !important;
+      }
+
+      .carousel-caption p {
+        font-size: 0.8rem !important;
+      }
+
+      /* Ensure full width cards on mobile */
+      .col-12.col-md-6.col-lg-4,
+      .col-12.col-sm-6.col-lg-3 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+      }
+
+      .service-card, .doctor-card {
+        margin-bottom: 2rem !important;
+      }
+
+      .service-icon {
+        font-size: 1.9rem !important;
+      }
+
+      .doctor-card img {
+        width: 75px !important;
+        height: 75px !important;
+      }
+
+      .doctor-specialty-icon {
+        font-size: 1.6rem !important;
+      }
+
+      /* Mobile booking form */
+      .booking-banner {
+        padding: 1.2rem !important;
+        margin: 0 0.5rem !important;
+      }
+
+      .form-control, .form-select {
+        font-size: 0.95rem !important;
+        padding: 0.5rem !important;
+      }
+
+      .btn-gradient {
+        font-size: 0.95rem !important;
+        padding: 0.7rem 1.2rem !important;
+      }
+
+      /* Section spacing */
+      .section-title {
+        font-size: 1.4rem !important;
+      }
+
+      .about-block p {
+        font-size: 0.95rem !important;
+      }
+
+      .blockquote {
+        font-size: 0.95rem !important;
+        padding: 1rem !important;
+      }
+
+      footer {
+        padding: 1rem 0 !important;
+      }
+
+      footer small {
+        font-size: 0.8rem !important;
+      }
+    }
+
+    /* Extra small devices (max-width: 400px) */
+    @media (max-width: 400px) {
+      .navbar-brand.custom-brand {
+        font-size: 1.1rem !important;
+      }
+
+      .carousel-item img {
+        height: 180px !important;
+      }
+
+      .service-icon {
+        font-size: 1.7rem !important;
+      }
+
+      .doctor-card img {
+        width: 65px !important;
+        height: 65px !important;
+      }
+
+      .booking-banner {
+        padding: 1rem 0.8rem !important;
+        margin: 0 0.3rem !important;
+      }
+    }
+
     @media (max-width: 900px) {
       .hero-content {margin-top: 2rem; text-align: center;}
       .booking-banner {padding: 1.2rem;}
