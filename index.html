@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Life Care Hospital</title>
-  <!-- Bootstrap CSS and Icons -->
+  <!-- Bootstrap CSS, Icons & Google Fonts -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
   <style>
     html { scroll-behavior: smooth; }
     :root {
       --primary: #2376ae;
       --accent: #43b0e4;
-      --hero-image: url('https://images.unsplash.com/photo-1580281657524-0c374d6b5be8?auto=format&fit=crop&w=1600&q=80');
       --card-radius: .95rem;
     }
     body { background: #f7fafd; font-family: 'Segoe UI', Arial, sans-serif; }
@@ -20,6 +20,20 @@
       background: rgba(255,255,255,.97);
       box-shadow: 0 2px 12px rgba(42,74,120,0.08);
       backdrop-filter: blur(7px);
+    }
+    .navbar-brand.custom-brand {
+      font-family: 'Quicksand', Arial, sans-serif;
+      color: #1f81bc !important;
+      letter-spacing: 2px;
+      font-size: 2.25rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-shadow: 2px 4px 14px #b9e3ff60, 0 1px 0 #fff;
+      transition: color .23s;
+    }
+    .navbar-brand.custom-brand:hover {
+      color: #43b0e4 !important;
+      text-shadow: 1px 3px 12px #e2f2ff99;
     }
     .nav-link {
       color: #2376ae !important; font-weight: 500; letter-spacing: .3px;
@@ -31,15 +45,31 @@
       color: #fff; border: none; font-weight: 500; transition: background .2s;
     }
     .btn-gradient:hover { background: linear-gradient(90deg, #2376ae 0, #43b0e4 90%);}
-    .hero {
-      background:
-        linear-gradient(110deg, rgba(26,52,82,.80) 0%, rgba(39,122,214,0.53) 100%),
-        var(--hero-image) center/cover no-repeat;
-      color: #fff;
-      min-height: 88vh;
-      display: flex; align-items: center;
+    /* Carousel */
+    .carousel-item img {
+      object-fit: cover;
+      height: 58vh;
+      min-height: 320px;
+      width: 100%;
+      filter: brightness(0.82) saturate(1.1);
+      border-bottom-left-radius: 1.6rem;
+      border-bottom-right-radius: 1.6rem;
     }
-    .hero-content { z-index: 2; position: relative; margin-top: 6rem;}
+    .carousel-caption {
+      background: rgba(30,95,180,0.22);
+      border-radius: .75rem;
+      padding: 1.2rem 2rem .7rem 2rem;
+      backdrop-filter: blur(3px);
+    }
+    .carousel-caption h2 {
+      font-family: 'Quicksand', Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-shadow: 2px 4px 22px #001e4480,0 1px 0 #fff;
+      color: #fff;
+    }
+    .carousel-caption p { color: #eaf4ff; font-size: 1.14rem;}
+    .hero-content { z-index: 2; position: relative; margin-top: 2rem;}
     .section-title { color: var(--primary); font-weight: 700; text-align: center; margin-bottom: 1.2rem; }
     .service-card, .doctor-card {
       border-radius: var(--card-radius); box-shadow: 0 2px 24px 0 rgba(40,122,214,0.12);
@@ -52,15 +82,21 @@
     }
     .service-icon { font-size: 2.3rem; color: var(--primary);}
     .about-block { max-width: 750px; margin: auto; }
-    /* Doctors styling */
     .doctor-card img {
-      border-radius: 50%; object-fit: cover; height: 108px; width: 108px;
+      border-radius: 50%; object-fit: cover; height:108px; width: 108px;
       margin-top: 1.33em; margin-bottom: .5em;
       border: 4px solid #e6eef8;
       background: #fff; transition: border .2s;
     }
     .doctor-card:hover img { border-color: var(--accent);}
-    /* Booking Section/Form */
+    .doctor-specialty-icon {
+      font-size: 2rem;
+      color: #43b0e4;
+      margin-bottom: 0.7em;
+      margin-right: 0.4em;
+      vertical-align: middle;
+      display: inline-block;
+    }
     .booking-banner {
       padding: 2.6rem 1.5rem;
       background: linear-gradient(100deg, #2376ae 30%, #43b0e4 100%);
@@ -70,7 +106,6 @@
       margin: 0 auto;
     }
     .form-label { font-weight: 500; }
-    /* Reviews */
     .blockquote {
       font-style: italic; border-left: 5px solid var(--accent); background: #e9f4fb;
       padding: 1.2rem 1.5rem 1.2rem 1.7rem;
@@ -80,11 +115,13 @@
     @media (max-width: 900px) {
       .hero-content {margin-top: 2rem; text-align: center;}
       .booking-banner {padding: 1.2rem;}
+      .carousel-item img {height: 35vh;}
     }
     @media (max-width: 600px) {
-      .hero { min-height: 60vh;}
       .doctor-card img {height: 80px; width: 80px;}
       .booking-banner {padding: 0.6rem;}
+      .carousel-item img {height: 185px;}
+      .navbar-brand.custom-brand {font-size: 1.3rem;}
     }
   </style>
 </head>
@@ -92,7 +129,7 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg fixed-top shadow-sm">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="#">Life Care Hospital</a>
+      <a class="navbar-brand fw-bold custom-brand" href="#">Life Care Hospital</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -109,14 +146,51 @@
       </div>
     </div>
   </nav>
-  <!-- Hero Section -->
-  <section id="home" class="hero d-flex align-items-center justify-content-center">
-    <div class="container hero-content">
-      <h1 class="display-4 fw-bold mb-3">Caring Hands, Healthy Lives</h1>
-      <p class="lead mb-4">Providing world-class medical services with compassion and excellence.</p>
-      <a href="#services" class="btn btn-gradient btn-lg shadow">Our Services <i class="bi bi-chevron-right ms-1"></i></a>
+
+  <!-- Carousel (Home) -->
+  <section id="home" class="pt-3">
+    <div id="hospitalHomeCarousel" class="carousel slide shadow mb-0" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#hospitalHomeCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#hospitalHomeCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#hospitalHomeCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80" class="d-block w-100" alt="Hospital Administration Team">
+          <div class="carousel-caption d-block">
+            <h2>Your Health, Our Priority</h2>
+            <p>Experience healthcare excellence with compassionate professionals dedicated to your wellbeing.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1200&q=80" class="d-block w-100" alt="Modern Hospital Equipment">
+          <div class="carousel-caption d-block">
+            <h2>Leading Innovation in Healthcare</h2>
+            <p>Advanced medical technology and expert care - where healing begins and hope is restored.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80" class="d-block w-100" alt="Hospital Leadership Meeting">
+          <div class="carousel-caption d-block">
+            <h2>Trusted Healthcare Partners</h2>
+            <p>Building healthier communities through exceptional medical care and personalized patient services.</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#hospitalHomeCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#hospitalHomeCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <div class="container hero-content text-center mt-4 mb-3">
     </div>
   </section>
+
   <!-- Services -->
   <section id="services" class="py-5">
     <div class="container">
@@ -134,7 +208,7 @@
         <div class="col-12 col-md-6 col-lg-4">
           <div class="card service-card h-100 text-center">
             <div class="card-body">
-              <div class="service-icon mb-2"><i class="bi bi-brain"></i></div>
+              <div class="service-icon mb-2"><i class="bi bi-activity"></i></div>
               <h5 class="card-title">Neurology</h5>
               <p class="card-text">Comprehensive neurological treatments and rehabilitation.</p>
             </div>
@@ -143,7 +217,7 @@
         <div class="col-12 col-md-6 col-lg-4">
           <div class="card service-card h-100 text-center">
             <div class="card-body">
-              <div class="service-icon mb-2"><i class="bi bi-tablets"></i></div>
+              <div class="service-icon mb-2"><i class="bi bi-capsule"></i></div>
               <h5 class="card-title">Pharmacy</h5>
               <p class="card-text">On-site pharmacy for prescriptions and medication counseling.</p>
             </div>
@@ -152,6 +226,7 @@
       </div>
     </div>
   </section>
+
   <!-- About Section -->
   <section id="about" class="py-5 bg-light">
     <div class="container">
@@ -163,42 +238,51 @@
       </div>
     </div>
   </section>
+
   <!-- Doctors Section -->
   <section id="doctors" class="py-5">
     <div class="container">
       <h2 class="section-title">Meet Our Doctors</h2>
       <div class="row g-4 justify-content-center">
+        <!-- Cardiology doctor -->
         <div class="col-12 col-sm-6 col-lg-3">
           <div class="card doctor-card h-100 text-center p-2">
             <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=240&q=80" alt="Dr. Emily Smith" class="mx-auto mt-2">
             <div class="card-body">
+              <div class="doctor-specialty-icon"><i class="bi bi-heart-pulse"></i></div>
               <h6 class="card-title mb-1 fw-bold">Dr. Emily Smith</h6>
               <p class="text-muted small">Cardiology</p>
             </div>
           </div>
         </div>
+        <!-- Neurology doctor -->
         <div class="col-12 col-sm-6 col-lg-3">
           <div class="card doctor-card h-100 text-center p-2">
-            <img src="https://images.unsplash.com/photo-1580281657524-0c374d6b5be8?auto=format&fit=crop&w=240&q=80" alt="Dr. Michael Lee" class="mx-auto mt-2">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=240&q=80" alt="Dr. Eliza John" class="mx-auto mt-2">
             <div class="card-body">
-              <h6 class="card-title mb-1 fw-bold">Dr. Michael Lee</h6>
+              <div class="doctor-specialty-icon"><i class="bi bi-activity"></i></div>
+              <h6 class="card-title mb-1 fw-bold">Dr. Eliza John</h6>
               <p class="text-muted small">Neurology</p>
             </div>
           </div>
         </div>
+        <!-- Pharmacy doctor -->
         <div class="col-12 col-sm-6 col-lg-3">
           <div class="card doctor-card h-100 text-center p-2">
-            <img src="https://images.unsplash.com/photo-1597764693844-413535d97f2a?auto=format&fit=crop&w=240&q=80" alt="Dr. Sarah Khan" class="mx-auto mt-2">
+            <img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=240&q=80" alt="Dr. Sarah Khan" class="mx-auto mt-2">
             <div class="card-body">
+              <div class="doctor-specialty-icon"><i class="bi bi-capsule"></i></div>
               <h6 class="card-title mb-1 fw-bold">Dr. Sarah Khan</h6>
               <p class="text-muted small">Pharmacy</p>
             </div>
           </div>
         </div>
+        <!-- Surgery doctor -->
         <div class="col-12 col-sm-6 col-lg-3">
           <div class="card doctor-card h-100 text-center p-2">
-            <img src="https://images.unsplash.com/photo-1579154203451-1e469c402e09?auto=format&fit=crop&w=240&q=80" alt="Dr. Robert Chen" class="mx-auto mt-2">
+            <img src="https://images.unsplash.com/photo-1504439468489-c8920d796a29?auto=format&fit=crop&w=240&q=80" alt="Dr. Robert Chen" class="mx-auto mt-2">
             <div class="card-body">
+              <div class="doctor-specialty-icon"><i class="bi bi-scissors"></i></div>
               <h6 class="card-title mb-1 fw-bold">Dr. Robert Chen</h6>
               <p class="text-muted small">Surgery</p>
             </div>
@@ -207,6 +291,7 @@
       </div>
     </div>
   </section>
+
   <!-- Book Appointment Section -->
   <section id="book" class="py-5">
     <div class="container">
@@ -250,6 +335,7 @@
       </div>
     </div>
   </section>
+
   <!-- Reviews Section -->
   <section id="reviews" class="py-5 bg-light">
     <div class="container">
@@ -257,20 +343,23 @@
       <div class="row g-4 justify-content-center">
         <div class="col-12 col-md-6">
           <blockquote class="blockquote">
-            “The care I received was exceptional—staff were professional and empathetic. Highly recommended!”
+            "The care I received was exceptional—staff were professional and empathetic. Highly recommended!"
             <footer class="blockquote-footer mt-2">Jane Doe</footer>
           </blockquote>
         </div>
         <div class="col-12 col-md-6">
           <blockquote class="blockquote">
-            “State-of-the-art facilities and a team that truly listens. Made my recovery smooth and comfortable.”
+            "State-of-the-art facilities and a team that truly listens. Made my recovery smooth and comfortable."
             <footer class="blockquote-footer mt-2">John Smith</footer>
           </blockquote>
         </div>
       </div>
     </div>
   </section>
-  <footer class="py-3 text-center"><small>&copy; 2025 Life Care Hospital. All rights reserved.</small></footer>
+  <footer class="py-3 text-center">
+    <small>&copy; 2025 Life Care Hospital. All rights reserved.</small>
+  </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     // Smooth navbar section scroll, highlight active link

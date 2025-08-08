@@ -4,46 +4,624 @@
   <meta charset="UTF-8">
   <title>Receptionist Dashboard | Life Care Hospital</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Enhanced SEO and Meta Tags -->
+  <meta name="description" content="Life Care Hospital professional receptionist dashboard for managing patients, appointments, and medical records with advanced animations and responsive design.">
+  <meta name="keywords" content="hospital dashboard, patient management, receptionist system, medical records, healthcare administration">
+  <meta name="robots" content="noindex, nofollow">
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
   <style>
-    body { background: #f6fafd; min-height:100vh; display:flex; flex-direction:column;}
+    /* Enhanced Professional Dashboard Styles with Advanced Animations */
+    :root {
+      --primary: #2376ae;
+      --accent: #43b0e4;
+      --gradient: linear-gradient(135deg, #2376ae 0%, #43b0e4 100%);
+      --shadow-light: rgba(35, 118, 174, 0.1);
+      --shadow-medium: rgba(35, 118, 174, 0.2);
+      --shadow-heavy: rgba(35, 118, 174, 0.4);
+      --glow-color: rgba(67, 176, 228, 0.6);
+      --success-color: #28a745;
+      --warning-color: #ffc107;
+      --danger-color: #dc3545;
+      --text-primary: #2c3e50;
+      --text-muted: #6c757d;
+      --bg-light: #f8f9fa;
+      --border-radius: 0.75rem;
+      --transition-fast: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --transition-slow: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    body { 
+      background: linear-gradient(135deg, #f6fafd 0%, #e8f4f8 50%, #f6fafd 100%);
+      background-size: 400% 400%;
+      animation: gradientShift 20s ease infinite;
+      min-height: 100vh; 
+      display: flex; 
+      flex-direction: column;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+    }
+    
+    /* Animated Background */
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    /* Loading Screen Animation */
+    .page-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+    
+    .page-loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .loader-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid #ffffff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Enhanced Navbar with Professional Animation */
     .navbar {
       background: rgba(255,255,255,.97);
-      box-shadow: 0 2px 12px rgba(42,74,120,0.08);
-      backdrop-filter: blur(7px);
+      box-shadow: 0 4px 20px var(--shadow-light);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(35, 118, 174, 0.05);
+      transition: all var(--transition-fast);
+      z-index: 1000;
     }
-    .nav-link, .navbar-brand { color:#2376ae !important; font-weight:500; }
-    .nav-link.active, .nav-link:hover { color: #43b0e4 !important;}
-    /* Dashboard styling */
+    
+    .navbar.scrolled {
+      box-shadow: 0 8px 32px var(--shadow-medium);
+      background: rgba(255,255,255,.98);
+    }
+    
+    .nav-link, .navbar-brand { 
+      color: var(--primary) !important; 
+      font-weight: 500;
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+    
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: all var(--transition-fast);
+      transform: translateX(-50%);
+    }
+    
+    .nav-link:hover::before,
+    .nav-link.active::before {
+      width: 80%;
+    }
+    
+    .nav-link.active, .nav-link:hover { 
+      color: var(--accent) !important;
+      transform: translateY(-2px);
+      text-shadow: 0 0 10px var(--glow-color);
+    }
+    
+    .navbar-brand:hover {
+      transform: scale(1.05);
+      color: var(--accent) !important;
+    }
+    
+    /* Advanced Sidebar with Glassmorphism Effect */
     .sidebar {
-      background: linear-gradient(120deg, #2376ae 80%, #43b0e4 100%);
-      min-height: 100vh; padding-top: 2rem;
+      background: var(--gradient);
+      min-height: 100vh; 
+      padding-top: 2rem;
+      position: relative;
+      box-shadow: 8px 0 32px var(--shadow-medium);
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
     }
+    
+    .sidebar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+      animation: sidebarShimmer 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    
+    @keyframes sidebarShimmer {
+      0%, 100% { transform: translateX(-100%); opacity: 0; }
+      50% { transform: translateX(100%); opacity: 1; }
+    }
+    
     .sidebar .nav-link {
-      color: #fff !important; font-weight: 500; margin-bottom: .7rem;
-      border-radius: .5rem; transition: background .19s;
+      color: #fff !important; 
+      font-weight: 500; 
+      margin-bottom: 0.8rem;
+      border-radius: var(--border-radius);
+      padding: 12px 20px;
+      transition: all var(--transition-fast);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(5px);
     }
-    .sidebar .nav-link.active, .sidebar .nav-link:hover { background: rgba(255,255,255,0.15);}
-    .dashboard-title { color: #2376ae; font-weight: bold;}
-    .card { border-radius: .7rem; }
-    .table { background: #fff; border-radius: .5rem; overflow: hidden;}
-    .btn-gradient { background: linear-gradient(90deg, #43b0e4 0, #2376ae 90%); color: #fff; border: none; }
-    .btn-gradient:hover { background: linear-gradient(90deg, #2376ae 0, #43b0e4 90%);}
-    .required:after { content: " *"; color: #dc3545;}
-    footer { background: #edf1f8; color: #4571aa;}
+    
+    .sidebar .nav-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left var(--transition-slow);
+      z-index: 1;
+    }
+    
+    .sidebar .nav-link:hover::before {
+      left: 100%;
+    }
+    
+    .sidebar .nav-link span {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .sidebar .nav-link.active, 
+    .sidebar .nav-link:hover { 
+      background: rgba(255,255,255,0.2);
+      transform: translateX(8px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      border-left: 4px solid rgba(255,255,255,0.8);
+    }
+    
+    .sidebar .nav-link.active {
+      background: rgba(255,255,255,0.25);
+      box-shadow: 
+        0 8px 32px rgba(255,255,255,0.1),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+    
+    /* Enhanced Dashboard Titles */
+    .dashboard-title { 
+      color: var(--primary); 
+      font-weight: 700;
+      position: relative;
+      margin-bottom: 2rem;
+      font-size: 1.8rem;
+    }
+    
+    .dashboard-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--gradient);
+      border-radius: 2px;
+      animation: titleLineGrow 1s ease-out;
+    }
+    
+    @keyframes titleLineGrow {
+      0% { width: 0; }
+      100% { width: 60px; }
+    }
+    
+    /* Enhanced Cards with Advanced Effects */
+    .card { 
+      border-radius: var(--border-radius);
+      border: none;
+      box-shadow: 
+        0 4px 25px var(--shadow-light),
+        0 2px 10px rgba(0,0,0,0.05);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      transition: all var(--transition-fast);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition-fast);
+    }
+    
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 
+        0 20px 40px var(--shadow-medium),
+        0 8px 16px rgba(0,0,0,0.1);
+    }
+    
+    /* Enhanced Table Styling */
+    .table-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--border-radius);
+    }
+    
+    .table { 
+      background: #fff; 
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: 0 2px 15px var(--shadow-light);
+      margin-bottom: 0;
+    }
+    
+    .table thead {
+      background: var(--gradient);
+      color: white;
+      position: relative;
+    }
+    
+    .table thead th {
+      border: none;
+      padding: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.875rem;
+    }
+    
+    .table tbody tr {
+      transition: all var(--transition-fast);
+      border-bottom: 1px solid rgba(35, 118, 174, 0.05);
+    }
+    
+    .table tbody tr:hover {
+      background: linear-gradient(90deg, rgba(67, 176, 228, 0.05), rgba(35, 118, 174, 0.02));
+      transform: scale(1.01);
+      box-shadow: 0 4px 12px var(--shadow-light);
+    }
+    
+    .table tbody td {
+      padding: 1rem;
+      vertical-align: middle;
+      border: none;
+    }
+    
+    /* Animated row entrance */
+    .table tbody tr {
+      opacity: 0;
+      transform: translateX(-20px);
+      animation: rowSlideIn 0.5s ease forwards;
+    }
+    
+    .table tbody tr:nth-child(1) { animation-delay: 0.1s; }
+    .table tbody tr:nth-child(2) { animation-delay: 0.2s; }
+    .table tbody tr:nth-child(3) { animation-delay: 0.3s; }
+    .table tbody tr:nth-child(4) { animation-delay: 0.4s; }
+    .table tbody tr:nth-child(5) { animation-delay: 0.5s; }
+    
+    @keyframes rowSlideIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    /* Enhanced Button Styling */
+    .btn-gradient { 
+      background: var(--gradient);
+      color: #fff; 
+      border: none;
+      border-radius: var(--border-radius);
+      padding: 12px 24px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px var(--shadow-medium);
+      transition: all var(--transition-fast);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-gradient::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.6s ease;
+    }
+    
+    .btn-gradient:hover::before {
+      left: 100%;
+    }
+    
+    .btn-gradient:hover { 
+      background: linear-gradient(135deg, #1a5a8a 0%, #2376ae 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px var(--shadow-heavy);
+      color: #fff;
+    }
+    
+    .btn-gradient:active {
+      transform: translateY(-1px);
+    }
+    
+    /* Form Enhancement */
+    .form-control, .form-select {
+      border: 2px solid rgba(35, 118, 174, 0.1);
+      border-radius: var(--border-radius);
+      padding: 12px 16px;
+      font-size: 1rem;
+      transition: all var(--transition-fast);
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(5px);
+    }
+    
+    .form-control:focus, .form-select:focus {
+      border-color: var(--accent);
+      box-shadow: 
+        0 0 20px var(--glow-color),
+        0 4px 15px rgba(67,176,228,0.2);
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.95);
+      outline: none;
+    }
+    
+    .form-label {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      transition: all var(--transition-fast);
+    }
+    
+    .required::after { 
+      content: " *"; 
+      color: var(--danger-color);
+      font-weight: bold;
+    }
+    
+    /* Alert Enhancements */
+    .alert {
+      border: none;
+      border-radius: var(--border-radius);
+      padding: 1rem 1.5rem;
+      margin-top: 1rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .alert-success {
+      background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(40, 167, 69, 0.05));
+      color: var(--success-color);
+      border-left: 4px solid var(--success-color);
+    }
+    
+    .alert-danger {
+      background: linear-gradient(135deg, rgba(220, 53, 69, 0.1), rgba(220, 53, 69, 0.05));
+      color: var(--danger-color);
+      border-left: 4px solid var(--danger-color);
+    }
+    
+    /* Mobile Menu Enhancement */
+    .mobile-menu {
+      background: var(--gradient);
+      border-radius: var(--border-radius);
+      padding: 0.5rem;
+      box-shadow: 0 4px 20px var(--shadow-medium);
+      backdrop-filter: blur(10px);
+    }
+    
+    .mobile-menu .btn {
+      border-radius: calc(var(--border-radius) - 2px);
+      font-weight: 500;
+      transition: all var(--transition-fast);
+    }
+    
+    .mobile-menu .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    
+    /* Footer Enhancement */
+    footer { 
+      background: linear-gradient(135deg, rgba(237,241,248,0.95), rgba(237,241,248,0.8));
+      backdrop-filter: blur(10px);
+      color: #4571aa;
+      border-top: 1px solid rgba(69,113,170,0.1);
+      position: relative;
+    }
+    
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient);
+      opacity: 0.3;
+    }
+    
+    /* Success and Loading States */
+    .form-success {
+      border-color: var(--success-color) !important;
+      box-shadow: 0 0 15px rgba(40, 167, 69, 0.3) !important;
+    }
+    
+    .btn-loading {
+      pointer-events: none;
+      position: relative;
+    }
+    
+    .btn-loading::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      margin: auto;
+      border: 2px solid transparent;
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 1s ease infinite;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    /* Responsive Design Enhancements */
     @media (max-width: 991px) {
-      .sidebar { min-height: auto; padding-top: 0.8rem;}
-      .dashboard-title {text-align:center;}
-      .main-content {padding: 2rem 0.2rem;}
+      .sidebar { 
+        min-height: auto; 
+        padding-top: 1rem;
+        box-shadow: 0 4px 20px var(--shadow-medium);
+      }
+      
+      .dashboard-title {
+        text-align: center;
+        font-size: 1.5rem;
+      }
+      
+      .main-content {
+        padding: 1.5rem 1rem;
+      }
+      
+      .card {
+        margin-bottom: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .dashboard-title {
+        font-size: 1.3rem;
+      }
+      
+      .btn-gradient {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+      
+      .table {
+        font-size: 0.875rem;
+      }
+      
+      .form-control, .form-select {
+        padding: 10px 14px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .main-content {
+        padding: 1rem 0.5rem;
+      }
+      
+      .card {
+        padding: 1rem !important;
+      }
+      
+      .table thead th,
+      .table tbody td {
+        padding: 0.75rem 0.5rem;
+      }
+    }
+    
+    /* Advanced Animation Classes */
+    .fade-in {
+      animation: fadeIn 0.6s ease forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .slide-in-right {
+      animation: slideInRight 0.5s ease forwards;
+    }
+    
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    .bounce-in {
+      animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+    
+    @keyframes bounceIn {
+      0% { opacity: 0; transform: scale(0.3); }
+      50% { opacity: 1; transform: scale(1.05); }
+      70% { transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 var(--glow-color); }
+      70% { box-shadow: 0 0 0 10px rgba(67, 176, 228, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(67, 176, 228, 0); }
     }
   </style>
 </head>
 <body>
+  <!-- Page Loader -->
+  <div class="page-loader" id="pageLoader">
+    <div class="loader-spinner"></div>
+  </div>
+
   <!-- Header/Navbar -->
-  <nav class="navbar navbar-expand-lg sticky-top">
+  <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
     <div class="container">
       <a class="navbar-brand fw-bold" href="index.html">Life Care Hospital</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"><span class="navbar-toggler-icon"></span></button>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <div class="collapse navbar-collapse" id="navMenu">
         <ul class="navbar-nav ms-auto align-items-center">
           <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
@@ -63,85 +641,158 @@
       <!-- Sidebar Navigation -->
       <nav class="col-lg-2 col-md-3 sidebar d-none d-md-block">
         <div>
-          <div class="mb-4 text-center"><span class="h5 text-white">Receptionist Menu</span></div>
+          <div class="mb-4 text-center">
+            <span class="h5 text-white">🏥 Receptionist Menu</span>
+          </div>
           <ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link active" href="#" id="menu-add">Add Patient</a></li>
-            <li class="nav-item"><a class="nav-link" href="#" id="menu-list">List Patients</a></li>
-            <li class="nav-item"><a class="nav-link" href="#" id="menu-search">Search/View Patient</a></li>
-            <li class="nav-item"><a class="nav-link" href="login.html">Logout</a></li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#" id="menu-add">
+                <span>➕ Add Patient</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="menu-list">
+                <span>📋 List Patients</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="menu-search">
+                <span>🔍 Search/View Patient</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.html">
+                <span>🚪 Logout</span>
+              </a>
+            </li>
           </ul>
         </div>
       </nav>
+      
       <!-- Responsive sidebar for mobile -->
       <nav class="col-12 d-md-none mb-3">
-        <div class="d-flex flex-row bg-primary rounded py-2 px-1 justify-content-around">
+        <div class="mobile-menu d-flex flex-row rounded py-2 px-1 justify-content-around">
           <a class="btn btn-light" id="menu-add-m">Add Patient</a>
           <a class="btn btn-light" id="menu-list-m">List</a>
           <a class="btn btn-light" id="menu-search-m">Search</a>
           <a class="btn btn-danger" href="login.html">Logout</a>
         </div>
       </nav>
+      
       <!-- Main Content -->
       <main class="col main-content">
         <!-- Add Patient -->
-        <div id="section-add">
-          <h2 class="dashboard-title mb-3">Add Patient</h2>
-          <div class="card p-4 shadow-sm mb-3 mx-auto" style="max-width:520px;">
+        <div id="section-add" class="d-none">
+          <h2 class="dashboard-title fade-in">Add Patient</h2>
+          <div class="card p-4 shadow-sm mb-3 mx-auto bounce-in" style="max-width:520px;">
             <form id="addPatientForm">
               <div class="mb-3">
                 <label class="form-label required">Full Name</label>
-                <input type="text" class="form-control" name="fullname" required>
+                <input type="text" class="form-control" name="fullname" required autocomplete="name" placeholder="Enter patient's full name">
               </div>
               <div class="mb-3">
                 <label class="form-label required">Age</label>
-                <input type="number" class="form-control" name="age" min="0" required>
+                <input type="number" class="form-control" name="age" min="0" max="150" required placeholder="Enter age">
+              </div>
+              <div class="mb-3">
+                <label class="form-label required">Gender</label>
+                <select class="form-select" name="gender" required>
+                  <option value="" disabled selected>Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
               </div>
               <div class="mb-3">
                 <label class="form-label required">Blood Group</label>
-                <input type="text" class="form-control" name="bloodgroup" placeholder="e.g. B+" required>
+                <select class="form-select" name="bloodgroup" required>
+                  <option value="" disabled selected>Select Blood Group</option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                </select>
               </div>
               <div class="mb-3">
                 <label class="form-label required">Phone Number</label>
-                <input type="tel" class="form-control" name="phone" pattern="[0-9]{10,}" required>
+                <input type="tel" class="form-control" name="phone" pattern="[0-9]{10,}" required autocomplete="tel" placeholder="Enter 10-digit phone number">
               </div>
               <div class="mb-3">
                 <label class="form-label required">Address</label>
-                <textarea class="form-control" rows="2" name="address" required></textarea>
+                <textarea class="form-control" rows="3" name="address" required autocomplete="street-address" placeholder="Enter complete address"></textarea>
               </div>
               <div class="d-grid">
-                <button class="btn btn-gradient" type="submit">Add Patient</button>
+                <button class="btn btn-gradient pulse" type="submit" id="addPatientBtn">
+                  <span>✨ Add Patient</span>
+                </button>
               </div>
             </form>
-            <div id="addPatientMsg" class="alert alert-success mt-3 d-none"></div>
+            <div id="addPatientMsg" class="alert alert-success d-none"></div>
           </div>
         </div>
+        
         <!-- List Patients -->
-        <div id="section-list" class="d-none">
-          <h2 class="dashboard-title mb-3">List of Patients</h2>
-          <div class="card p-3 shadow-sm table-responsive">
-            <table class="table table-hover align-middle mb-0">
-              <thead>
-                <tr>
-                  <th>#</th><th>Name</th><th>Age</th><th>Blood Group</th><th>Phone</th><th>Address</th>
-                </tr>
-              </thead>
-              <tbody id="patientsTable">
-                <!-- Patient data -->
-              </tbody>
-            </table>
+        <div id="section-list" class="">
+          <h2 class="dashboard-title fade-in">📊 List of Patients</h2>
+          <div class="card p-3 shadow-sm table-responsive slide-in-right">
+            <div class="table-container">
+              <table class="table table-hover align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th>#</th><th>Name</th><th>Age</th><th>Gender</th><th>Blood Group</th><th>Phone</th><th>Address</th>
+                  </tr>
+                </thead>
+                <tbody id="patientsTable">
+                  <tr>
+                    <td>1</td>
+                    <td><strong>John Doe</strong></td>
+                    <td>28</td>
+                    <td>Male</td>
+                    <td><span class="badge bg-primary">A+</span></td>
+                    <td>9876543210</td>
+                    <td>123 Maple St, Cityville</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td><strong>Jane Smith</strong></td>
+                    <td>35</td>
+                    <td>Female</td>
+                    <td><span class="badge bg-info">B-</span></td>
+                    <td>9123456789</td>
+                    <td>456 Oak Ave, Townsville</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td><strong>Raj Kumar</strong></td>
+                    <td>45</td>
+                    <td>Male</td>
+                    <td><span class="badge bg-success">O+</span></td>
+                    <td>9988776655</td>
+                    <td>789 Pine Rd, Villagetown</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
+        
         <!-- Search/View Patient -->
         <div id="section-search" class="d-none">
-          <h2 class="dashboard-title mb-3">Search &amp; View Patient</h2>
-          <div class="card p-4 shadow-sm mb-3 mx-auto" style="max-width:440px;">
+          <h2 class="dashboard-title fade-in">🔍 Search &amp; View Patient</h2>
+          <div class="card p-4 shadow-sm mb-3 mx-auto bounce-in" style="max-width:440px;">
             <form id="searchForm">
               <div class="mb-3">
                 <label class="form-label required">Search by Name</label>
-                <input type="text" class="form-control" id="searchName" required>
+                <input type="text" class="form-control" id="searchName" required placeholder="Enter patient name..." autocomplete="off">
               </div>
               <div class="d-grid">
-                <button class="btn btn-gradient" type="submit">Search</button>
+                <button class="btn btn-gradient pulse" type="submit" id="searchBtn">
+                  <span>🔍 Search Patient</span>
+                </button>
               </div>
             </form>
           </div>
@@ -155,79 +806,407 @@
   <footer class="py-3 text-center mt-auto">
     <small>&copy; 2025 Life Care Hospital. All rights reserved.</small>
   </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Sidebar (desktop) & mobile menu logic
-    const menus = ['add', 'list', 'search'];
-    menus.forEach(menu => {
-      const desktop = document.getElementById('menu-' + menu);
-      if(desktop) desktop.addEventListener('click', function(e) {
-        e.preventDefault();
-        menus.forEach(m => {
-          document.getElementById('section-' + m).classList.add('d-none');
-          document.getElementById('menu-' + m).classList.remove('active');
+    // Enhanced Dashboard JavaScript with Professional Animations
+    document.addEventListener('DOMContentLoaded', function() {
+      // Page loader animation
+      setTimeout(() => {
+        document.getElementById('pageLoader').classList.add('hidden');
+      }, 1200);
+      
+      // Navbar scroll effect
+      window.addEventListener('scroll', function() {
+        const navbar = document.getElementById('mainNavbar');
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+      
+      // Sidebar menu logic with enhanced animations
+      const menus = ['add', 'list', 'search'];
+      
+      menus.forEach(menu => {
+        const desktop = document.getElementById('menu-' + menu);
+        if(desktop) desktop.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Remove active states with animation
+          menus.forEach(m => {
+            const menuEl = document.getElementById('menu-' + m);
+            const sectionEl = document.getElementById('section-' + m);
+            if (menuEl) menuEl.classList.remove('active');
+            if (sectionEl) {
+              sectionEl.classList.add('d-none');
+              sectionEl.classList.remove('fade-in', 'slide-in-right', 'bounce-in');
+            }
+          });
+          
+          // Add active state and show section with animation
+          this.classList.add('active');
+          const targetSection = document.getElementById('section-' + menu);
+          if (targetSection) {
+            setTimeout(() => {
+              targetSection.classList.remove('d-none');
+              targetSection.classList.add('slide-in-right');
+            }, 100);
+          }
         });
-        document.getElementById('section-' + menu).classList.remove('d-none');
-        this.classList.add('active');
+        
+        // Mobile menu functionality
+        const mobile = document.getElementById('menu-' + menu + '-m');
+        if(mobile) mobile.addEventListener('click', function(e) {
+          e.preventDefault();
+          menus.forEach(m => {
+            const sectionEl = document.getElementById('section-' + m);
+            if (sectionEl) {
+              sectionEl.classList.add('d-none');
+              sectionEl.classList.remove('fade-in', 'slide-in-right', 'bounce-in');
+            }
+          });
+          const targetSection = document.getElementById('section-' + menu);
+          if (targetSection) {
+            setTimeout(() => {
+              targetSection.classList.remove('d-none');
+              targetSection.classList.add('slide-in-right');
+            }, 100);
+          }
+        });
       });
-      const mobile = document.getElementById('menu-' + menu + '-m');
-      if(mobile) mobile.addEventListener('click', function(e) {
+
+      // Enhanced Patient Management System
+      let patients = [];
+      let patientCount = 3;
+
+      // Enhanced Add Patient with animations and validation
+      document.getElementById('addPatientForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        menus.forEach(m => document.getElementById('section-' + m).classList.add('d-none'));
-        document.getElementById('section-' + menu).classList.remove('d-none');
+        
+        const submitButton = document.getElementById('addPatientBtn');
+        const originalText = submitButton.innerHTML;
+        
+        // Add loading state
+        submitButton.classList.add('btn-loading');
+        submitButton.innerHTML = '<span>Processing...</span>';
+        submitButton.disabled = true;
+        
+        // Enhanced form validation
+        const formData = new FormData(this);
+        const requiredFields = ['fullname', 'age', 'gender', 'bloodgroup', 'phone', 'address'];
+        let isValid = true;
+        
+        // Visual validation feedback
+        requiredFields.forEach(field => {
+          const input = document.querySelector(`[name="${field}"]`);
+          if (!formData.get(field) || !formData.get(field).trim()) {
+            input.classList.remove('form-success');
+            input.style.borderColor = '#dc3545';
+            input.style.boxShadow = '0 0 10px rgba(220, 53, 69, 0.3)';
+            isValid = false;
+            
+            setTimeout(() => {
+              input.style.borderColor = '';
+              input.style.boxShadow = '';
+            }, 3000);
+          } else {
+            input.classList.add('form-success');
+          }
+        });
+        
+        if (!isValid) {
+          submitButton.classList.remove('btn-loading');
+          submitButton.innerHTML = originalText;
+          submitButton.disabled = false;
+          return;
+        }
+        
+        // Simulate processing time with success animation
+        setTimeout(() => {
+          const patient = {
+            id: ++patientCount,
+            name: formData.get('fullname'),
+            age: formData.get('age'),
+            gender: formData.get('gender'),
+            bloodgroup: formData.get('bloodgroup'),
+            phone: formData.get('phone'),
+            address: formData.get('address'),
+            registeredAt: new Date().toLocaleString()
+          };
+          
+          patients.push(patient);
+          this.reset();
+          
+          // Success animation and message
+          const msgEl = document.getElementById('addPatientMsg');
+          msgEl.classList.remove('d-none');
+          msgEl.classList.add('bounce-in');
+          msgEl.innerHTML = `
+            <div class="d-flex align-items-center">
+              <div class="me-3">✅</div>
+              <div>
+                <strong>Success!</strong> Patient "<strong>${patient.name}</strong>" has been successfully registered with ID #${patient.id}
+                <br><small class="text-muted">Registered on: ${patient.registeredAt}</small>
+              </div>
+            </div>
+          `;
+          
+          setTimeout(() => {
+            msgEl.classList.add('d-none');
+            msgEl.classList.remove('bounce-in');
+          }, 5000);
+          
+          updatePatientTable();
+          
+          // Reset button
+          submitButton.classList.remove('btn-loading');
+          submitButton.innerHTML = originalText;
+          submitButton.disabled = false;
+          
+          // Clear form validation states
+          document.querySelectorAll('.form-success').forEach(el => {
+            el.classList.remove('form-success');
+          });
+          
+        }, 1800);
       });
-    });
-    // Patient "Database"
-    let patients = [];
-    let patientCount = 0;
-    // Add Patient
-    document.getElementById('addPatientForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const fd = new FormData(this);
-      const patient = {
-        id: ++patientCount,
-        name: fd.get('fullname'),
-        age: fd.get('age'),
-        bloodgroup: fd.get('bloodgroup'),
-        phone: fd.get('phone'),
-        address: fd.get('address')
-      };
-      patients.push(patient);
-      this.reset();
-      document.getElementById('addPatientMsg').classList.remove('d-none');
-      document.getElementById('addPatientMsg').innerText = `Successfully added "${patient.name}" with Registration #${patient.id}`;
-      setTimeout(() => document.getElementById('addPatientMsg').classList.add('d-none'), 2500);
-      updatePatientTable();
-    });
-    // Update List Table
-    function updatePatientTable() {
-      const table = document.getElementById('patientsTable');
-      table.innerHTML = '';
-      patients.forEach(p => {
-        table.innerHTML += `<tr>
-          <td>${p.id}</td>
-          <td>${p.name}</td>
-          <td>${p.age}</td>
-          <td>${p.bloodgroup}</td>
-          <td>${p.phone}</td>
-          <td>${p.address}</td>
+
+      // Enhanced Update Patient Table with animations
+      function updatePatientTable() {
+        const table = document.getElementById('patientsTable');
+        const dummyRows = `
+        <tr style="animation-delay: 0.1s">
+          <td>1</td>
+          <td><strong>John Doe</strong></td>
+          <td>28</td>
+          <td>Male</td>
+          <td><span class="badge bg-primary">A+</span></td>
+          <td>9876543210</td>
+          <td>123 Maple St, Cityville</td>
+        </tr>
+        <tr style="animation-delay: 0.2s">
+          <td>2</td>
+          <td><strong>Jane Smith</strong></td>
+          <td>35</td>
+          <td>Female</td>
+          <td><span class="badge bg-info">B-</span></td>
+          <td>9123456789</td>
+          <td>456 Oak Ave, Townsville</td>
+        </tr>
+        <tr style="animation-delay: 0.3s">
+          <td>3</td>
+          <td><strong>Raj Kumar</strong></td>
+          <td>45</td>
+          <td>Male</td>
+          <td><span class="badge bg-success">O+</span></td>
+          <td>9988776655</td>
+          <td>789 Pine Rd, Villagetown</td>
         </tr>`;
-      });
-    }
-    // Search Patient
-    document.getElementById('searchForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name = document.getElementById('searchName').value.trim().toLowerCase();
-      const found = patients.filter(p => p.name.toLowerCase().includes(name));
-      let resultSection = document.getElementById('searchResult');
-      if (found.length === 0) {
-        resultSection.innerHTML = `<div class="alert alert-danger">No patient found with that name.</div>`;
-      } else {
-        resultSection.innerHTML = `<div class="card p-3 shadow-sm">
-        <h5>Patient Details</h5>
-        ${found.map(p => `<div class="mb-2"><b>Reg #${p.id}:</b> ${p.name}, <b>Age:</b> ${p.age}, <b>Blood:</b> ${p.bloodgroup}, <b>Phone:</b> ${p.phone}, <b>Address:</b> ${p.address}</div>`).join('')}
-        </div>`;
+        
+        let dynamicRows = '';
+        patients.forEach((p, index) => {
+          if (p.id > 3) {
+            const bloodGroupColors = {
+              'A+': 'primary', 'A-': 'secondary', 'B+': 'info', 'B-': 'warning',
+              'AB+': 'success', 'AB-': 'danger', 'O+': 'dark', 'O-': 'light'
+            };
+            
+            dynamicRows += `<tr style="animation-delay: ${0.4 + index * 0.1}s">
+              <td><strong>${p.id}</strong></td>
+              <td><strong>${p.name}</strong></td>
+              <td>${p.age}</td>
+              <td>${p.gender}</td>
+              <td><span class="badge bg-${bloodGroupColors[p.bloodgroup] || 'primary'}">${p.bloodgroup}</span></td>
+              <td>${p.phone}</td>
+              <td>${p.address}</td>
+            </tr>`;
+          }
+        });
+        
+        table.innerHTML = dummyRows + dynamicRows;
       }
+
+      // Enhanced Search Patient with real-time feedback and animations
+      const searchForm = document.getElementById('searchForm');
+      const searchInput = document.getElementById('searchName');
+      const searchButton = document.getElementById('searchBtn');
+      
+      searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        performSearch();
+      });
+      
+      // Real-time search feedback
+      searchInput.addEventListener('input', function() {
+        if (this.value.length >= 2) {
+          this.classList.add('form-success');
+        } else {
+          this.classList.remove('form-success');
+          if (this.value.length === 0) {
+            document.getElementById('searchResult').innerHTML = '';
+          }
+        }
+      });
+      
+      function performSearch() {
+        const name = searchInput.value.trim().toLowerCase();
+        if (!name) return;
+        
+        const originalText = searchButton.innerHTML;
+        searchButton.classList.add('btn-loading');
+        searchButton.innerHTML = '<span>Searching...</span>';
+        searchButton.disabled = true;
+        
+        setTimeout(() => {
+          const found = patients.filter(p => p.name.toLowerCase().includes(name) || 
+            (p.id <= 3 && ['john doe','jane smith','raj kumar'].some(dname => dname.includes(name))));
+            
+          let resultSection = document.getElementById('searchResult');
+          
+          if (found.length === 0 && !['john', 'jane', 'raj', 'doe', 'smith', 'kumar'].some(dname => name.includes(dname))) {
+            resultSection.innerHTML = `
+              <div class="alert alert-danger bounce-in">
+                <div class="d-flex align-items-center">
+                  <div class="me-3">❌</div>
+                  <div>
+                    <strong>No Patient Found!</strong><br>
+                    No patient found with the name "<strong>${searchInput.value}</strong>". 
+                    Please check the spelling and try again.
+                  </div>
+                </div>
+              </div>
+            `;
+          } else {
+            // Include dummy data for demo
+            const dummyData = {
+              1: {name: 'John Doe', age: 28, gender: 'Male', bloodgroup: 'A+', phone: '9876543210', address: '123 Maple St, Cityville'},
+              2: {name: 'Jane Smith', age: 35, gender: 'Female', bloodgroup: 'B-', phone: '9123456789', address: '456 Oak Ave, Townsville'},
+              3: {name: 'Raj Kumar', age: 45, gender: 'Male', bloodgroup: 'O+', phone: '9988776655', address: '789 Pine Rd, Villagetown'}
+            };
+            
+            let allResults = [];
+            
+            // Check dummy data
+            Object.keys(dummyData).forEach(id => {
+              if (dummyData[id].name.toLowerCase().includes(name)) {
+                allResults.push({
+                  id: parseInt(id),
+                  ...dummyData[id]
+                });
+              }
+            });
+            
+            // Add dynamic results
+            allResults = allResults.concat(found.filter(p => p.id > 3));
+            
+            if (allResults.length > 0) {
+              let resultsHtml = `
+                <div class="card p-4 shadow-sm bounce-in">
+                  <div class="d-flex align-items-center mb-3">
+                    <div class="me-3">🔍</div>
+                    <h5 class="mb-0">Search Results (${allResults.length} found)</h5>
+                  </div>
+              `;
+              
+              allResults.forEach((p, index) => {
+                const bloodGroupColors = {
+                  'A+': 'primary', 'A-': 'secondary', 'B+': 'info', 'B-': 'warning',
+                  'AB+': 'success', 'AB-': 'danger', 'O+': 'dark', 'O-': 'light'
+                };
+                
+                resultsHtml += `
+                  <div class="card mb-3 border-start border-4 border-primary" style="animation: fadeIn 0.5s ease forwards; animation-delay: ${index * 0.1}s; opacity: 0;">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-md-2">
+                          <div class="text-center">
+                            <div class="badge bg-light text-dark fs-6 px-3 py-2">
+                              #${p.id}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-10">
+                          <h6 class="card-title mb-2">
+                            <strong>👤 ${p.name}</strong>
+                            <span class="badge bg-${bloodGroupColors[p.bloodgroup] || 'primary'} ms-2">${p.bloodgroup}</span>
+                          </h6>
+                          <div class="row text-muted small">
+                            <div class="col-md-6">
+                              <div><strong>Age:</strong> ${p.age} years</div>
+                              <div><strong>Gender:</strong> ${p.gender}</div>
+                            </div>
+                            <div class="col-md-6">
+                              <div><strong>Phone:</strong> ${p.phone}</div>
+                              <div><strong>Address:</strong> ${p.address}</div>
+                            </div>
+                          </div>
+                          ${p.registeredAt ? `<div class="text-muted small mt-2"><strong>Registered:</strong> ${p.registeredAt}</div>` : ''}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              });
+              
+              resultsHtml += `</div>`;
+              resultSection.innerHTML = resultsHtml;
+            }
+          }
+          
+          searchButton.classList.remove('btn-loading');
+          searchButton.innerHTML = originalText;
+          searchButton.disabled = false;
+        }, 1000);
+      }
+
+      // Initialize animations and default state
+      updatePatientTable();
+
+      // Show List Patients section by default with animation
+      document.getElementById('section-list').classList.remove('d-none');
+      document.getElementById('menu-list').classList.add('active');
+      
+      // Add intersection observer for scroll animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+      
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('fade-in');
+          }
+        });
+      }, observerOptions);
+      
+      // Observe elements for scroll animations
+      document.querySelectorAll('.card, .dashboard-title').forEach(el => {
+        observer.observe(el);
+      });
+      
+      // Enhanced form input animations
+      document.querySelectorAll('.form-control, .form-select').forEach(input => {
+        input.addEventListener('focus', function() {
+          this.style.transform = 'translateY(-2px)';
+          const label = this.parentNode.querySelector('.form-label');
+          if (label) {
+            label.style.color = 'var(--accent)';
+            label.style.transform = 'scale(1.05)';
+          }
+        });
+        
+        input.addEventListener('blur', function() {
+          this.style.transform = '';
+          const label = this.parentNode.querySelector('.form-label');
+          if (label && !this.value) {
+            label.style.color = '';
+            label.style.transform = '';
+          }
+        });
+      });
     });
   </script>
 </body>
