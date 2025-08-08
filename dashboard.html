@@ -688,11 +688,11 @@
             <form id="addPatientForm">
               <div class="mb-3">
                 <label class="form-label required">Full Name</label>
-                <input type="text" class="form-control" name="fullname" required autocomplete="name" placeholder="Enter patient's full name">
+                <input type="text" class="form-control" name="fullname" required autocomplete="name" placeholder="Enter patient's full name" minlength="3">
               </div>
               <div class="mb-3">
                 <label class="form-label required">Age</label>
-                <input type="number" class="form-control" name="age" min="0" max="150" required placeholder="Enter age">
+                <input type="number" class="form-control" name="age" min="1" max="150" required placeholder="Enter age">
               </div>
               <div class="mb-3">
                 <label class="form-label required">Gender</label>
@@ -737,7 +737,7 @@
         
         <!-- List Patients -->
         <div id="section-list" class="">
-          <h2 class="dashboard-title fade-in" >📊 List of Patients</h2>
+          <h2 class="dashboard-title fade-in">📊 List of Patients</h2>
           <div class="card p-3 shadow-sm table-responsive slide-in-right">
             <div class="table-container">
               <table class="table table-hover align-middle mb-0">
@@ -893,13 +893,38 @@
         submitButton.innerHTML = '<span>Processing...</span>';
         submitButton.disabled = true;
         
-        // Enhanced form validation
+        // Enhanced form validation with specific fullname validation message
         const formData = new FormData(this);
         const requiredFields = ['fullname', 'age', 'gender', 'bloodgroup', 'phone', 'address'];
         let isValid = true;
+        let errorMessages = [];
         
-        // Visual validation feedback
+        // Check fullname length (must be at least 3 characters) - EXACT MESSAGE AS REQUESTED
+        const fullname = formData.get('fullname').trim();
+        if (!fullname || fullname.length < 3) {
+          const input = document.querySelector('[name="fullname"]');
+          input.classList.remove('form-success');
+          input.style.borderColor = '#dc3545';
+          input.style.boxShadow = '0 0 10px rgba(220, 53, 69, 0.3)';
+          errorMessages.push('Fullname should be atleast 3 charecters');
+          isValid = false;
+        }
+        
+        // Check age (must be greater than 0)
+        const age = parseInt(formData.get('age'));
+        if (!age || age <= 0) {
+          const input = document.querySelector('[name="age"]');
+          input.classList.remove('form-success');
+          input.style.borderColor = '#dc3545';
+          input.style.boxShadow = '0 0 10px rgba(220, 53, 69, 0.3)';
+          errorMessages.push('Age must be greater than 0');
+          isValid = false;
+        }
+        
+        // Visual validation feedback for other fields
         requiredFields.forEach(field => {
+          if (field === 'fullname' || field === 'age') return; // Already validated above
+          
           const input = document.querySelector(`[name="${field}"]`);
           if (!formData.get(field) || !formData.get(field).trim()) {
             input.classList.remove('form-success');
@@ -920,6 +945,25 @@
           submitButton.classList.remove('btn-loading');
           submitButton.innerHTML = originalText;
           submitButton.disabled = false;
+          
+          // Show error message with specific fullname validation message
+          const msgEl = document.getElementById('addPatientMsg');
+          msgEl.classList.remove('d-none', 'alert-success');
+          msgEl.classList.add('alert-danger');
+          msgEl.innerHTML = `
+            <div class="d-flex align-items-center">
+              <div class="me-3">❌</div>
+              <div>
+                <strong>Validation Error!</strong><br>
+                ${errorMessages.join('<br>')}
+              </div>
+            </div>
+          `;
+          
+          setTimeout(() => {
+            msgEl.classList.add('d-none');
+          }, 4000);
+          
           return;
         }
         
@@ -927,8 +971,8 @@
         setTimeout(() => {
           const patient = {
             id: ++patientCount,
-            name: formData.get('fullname'),
-            age: formData.get('age'),
+            name: fullname,
+            age: age,
             gender: formData.get('gender'),
             bloodgroup: formData.get('bloodgroup'),
             phone: formData.get('phone'),
@@ -941,8 +985,8 @@
           
           // Success animation and message
           const msgEl = document.getElementById('addPatientMsg');
-          msgEl.classList.remove('d-none');
-          msgEl.classList.add('bounce-in');
+          msgEl.classList.remove('d-none', 'alert-danger');
+          msgEl.classList.add('alert-success', 'bounce-in');
           msgEl.innerHTML = `
             <div class="d-flex align-items-center">
               <div class="me-3">✅</div>
